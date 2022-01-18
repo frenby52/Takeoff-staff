@@ -1,0 +1,38 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "users": [
+    {
+      "email": "admin@admin.ru",
+      "password": "$2a$10$2q1UDf7yyYedsBF1kMAUtuq6UpM6ERAMEnKb9OhiZ/BKkU0fncyfW",
+      "id": 1
+    }
+  ],
+  "phonebook": [
+    {
+      "name": "home",
+      "phone": "123456789",
+      "id": 1
+    },
+    {
+      "name": "friend",
+      "phone": "987654321",
+      "id": 2
+    },
+    {
+      "name": "office",
+      "phone": "321456",
+      "id": 3
+    },
+    {
+      "name": "doctor",
+      "phone": "03",
+      "id": 4
+    }
+  ]
+}
