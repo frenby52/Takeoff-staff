@@ -11,9 +11,8 @@ tg: @frenby
 _nodejs latest LTS version v16.13.0_
 ```
 1) npm i
-2) npm run build
-3) npm run json-server
-4) npm start
+2) npm run json-server
+3) npm start
 ```
 ##### Тестовый пользователь:
 
