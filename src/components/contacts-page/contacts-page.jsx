@@ -33,25 +33,24 @@ class ContactsPage extends React.PureComponent {
             <AddContact id={-1} contact={null} onAddButtonClick={onAddButtonClick} onSuccess={onActiveItemChange}/>
             <div className="contacts-page__contacts">
               <h2 className="contacts-page__contacts-title">Contacts list:</h2>
-              {isContactsLoaded && !contacts.length ? <div>No data to show, try again</div> : contacts.map((contact, i) => {
+              {isContactsLoaded && !contacts.length ? <div>No data to show</div> : contacts.map((contact, i) => {
 
                 return (
-                  <>
-                    <div className="contact" key={contact.id}>
-                      <div className="contact__wrapper">
-                        <div className="contact__id">Contact №{i + 1}</div>
-                        <div className="contact__content-controls">
-                          <button className="contact__btn" type="button" onClick={()=>onActiveItemChange(contact.id)} data-id={contact.id} name="Edit" >Edit</button>
-                          <button className="contact__btn" type="button" onClick={()=>onDeleteButtonClick(contact.id)} name="Delete" >Delete</button>
-                        </div>
-                      </div >
-                      <div className="contact__content">
-                        <p className="contact__text"><span className="contact__text-title">Name:</span> {contact.name}</p>
-                        <p className="contact__text"><span className="contact__text-title">Phone:</span> {contact.phone}</p>
+                  <div className="contact" key={contact.id}>
+                    <div className="contact__wrapper">
+                      <div className="contact__id">Contact №{i + 1}</div>
+                      <div className="contact__content-controls">
+                        <button className="contact__btn" type="button" onClick={()=>onActiveItemChange(contact.id)} data-id={contact.id} name="Edit" >Edit</button>
+                        <button className="contact__btn" type="button" onClick={()=>onDeleteButtonClick(contact.id)} name="Delete" >Delete</button>
                       </div>
-                      {activeItem === contact.id && <AddContact id={activeItem} onAddButtonClick={onEditButtonClick} onSuccess={onActiveItemChange} contact={contact}/>}
+                    </div >
+                    <div className="contact__content">
+                      <p className="contact__text"><span className="contact__text-title">Name:</span> {contact.name}</p>
+                      <p className="contact__text"><span className="contact__text-title">Phone:</span> {contact.phone}</p>
                     </div>
-                  </>);
+                    {activeItem === contact.id && <AddContact id={activeItem} onAddButtonClick={onEditButtonClick} onSuccess={onActiveItemChange} contact={contact}/>}
+                  </div>
+                );
               })}
             </div>
           </div>
