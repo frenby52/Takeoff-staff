@@ -6,7 +6,7 @@ const UserData = {
 };
 
 const SignIn = (props) => {
-  const {onSignInButtonClick} = props;
+  const {onSignInButtonClick, error} = props;
   const formRef = React.createRef();
 
   const _handleFormSubmit = (evt) => {
@@ -33,6 +33,7 @@ const SignIn = (props) => {
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>
+          {error && <div style={{color: `red`}}>{error.errorText}</div>}
           <button className="sign-in__btn" type="submit" name="Sign-in" onClick={_handleFormSubmit}>Sign in</button>
         </form>
       </div>

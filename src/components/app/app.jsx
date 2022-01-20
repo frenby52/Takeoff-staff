@@ -9,17 +9,18 @@ import history from "../../history.js";
 import PrivateRoute from "../private-route/private-route.jsx";
 import {AppRoute} from "../../const.js";
 import Page404 from "../page-404/page-404.jsx";
+import {getUserError} from "../../reducer/user/selectors";
 
 const ContactsPageWrapped = withActiveItem(ContactsPage);
 
 const App = (props) => {
-  const {login} = props;
+  const {login, error} = props;
 
   return (
     <Router history={history}>
       <Switch>
         <Route exact path={AppRoute.LOGIN}
-          render={() => <SignIn onSignInButtonClick={login} />}
+          render={() => <SignIn onSignInButtonClick={login} error={error}/>}
         />
         <PrivateRoute exact path={AppRoute.ROOT}
           render={() => <ContactsPageWrapped />}
@@ -32,6 +33,13 @@ const App = (props) => {
   );
 };
 
+const mapStateToProps = (state) => {
+
+  return {
+    error: getUserError(state),
+  };
+};
+
 const mapDispatchToProps = (dispatch) => ({
   login(data) {
     dispatch(UserOperation.login(data));
@@ -39,4 +47,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {App};
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
