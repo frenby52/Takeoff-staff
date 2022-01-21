@@ -1,11 +1,12 @@
 import React from "react";
-import {getAuthStatus, getAuthUserData} from "../../reducer/user/selectors";
+import {getAuthUserData} from "../../reducer/user/selectors";
 import {connect} from "react-redux";
 import {getFilteredContacts, isContactsLoaded} from "../../reducer/contacts/selectors";
 import {Operation as ContactsOperation} from "../../reducer/contacts/contacts";
 import AddContact from "../add-contact/add-contact.jsx";
 import SearchPanel from "../search-panel/search-panel.jsx";
 import {ActionCreator} from "../../reducer/contacts/contacts";
+import {Operation as UserOperation} from "../../reducer/user/user";
 
 class ContactsPage extends React.PureComponent {
   componentDidMount() {
@@ -16,14 +17,16 @@ class ContactsPage extends React.PureComponent {
   }
 
   render() {
-    const {contacts, isContactsLoaded, activeItem, onActiveItemChange, isAuthed, authUserData, onAddButtonClick, onEditButtonClick, onDeleteButtonClick, onSearchButtonClick} = this.props;
+    const {contacts, isContactsLoaded, activeItem, onActiveItemChange, authUserData, onAddButtonClick, onEditButtonClick, onDeleteButtonClick, onSearchButtonClick, logout} = this.props;
 
     return !isContactsLoaded || !authUserData ? <h2>Loading...</h2> : (
       <div className="wrapper">
         <div className="contacts-page__wrap">
           <h1 className="contacts-page__title">PhoneBook App</h1>
           <header className="contacts-page__header">
-            {isAuthed && <div className="contacts-page__user-block">Current user: {authUserData.email}</div>}
+            {authUserData && <div className="contacts-page__user-block">Current user: {authUserData.email}
+              <p className="contacts-page__logout" onClick={logout}>(Logout)</p>
+            </div>}
             <div className="contacts-page__search">
               <SearchPanel onSearchButtonClick={onSearchButtonClick}/>
             </div>
@@ -67,7 +70,6 @@ class ContactsPage extends React.PureComponent {
 const mapStateToProps = (state) => {
 
   return {
-    isAuthed: getAuthStatus(state),
     contacts: getFilteredContacts(state),
     isContactsLoaded: isContactsLoaded(state),
     authUserData: getAuthUserData(state),
@@ -89,6 +91,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSearchButtonClick(searchQuery) {
     dispatch(ActionCreator.changeSearchQuery(searchQuery));
+  },
+  logout() {
+    dispatch(UserOperation.logout());
   },
 });
 

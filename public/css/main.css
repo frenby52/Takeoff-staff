@@ -492,6 +492,15 @@ body {
   max-width: 400px;
 }
 
+.contacts-page__logout {
+  margin: 0;
+  margin-top: 5px;
+}
+
+.contacts-page__logout:hover {
+  cursor: pointer;
+}
+
 .contacts-page__contacts-wrap {
   margin-bottom: 50px;
 }

@@ -13,14 +13,12 @@ const ActionType = {
   SET_AUTH_STATUS: `SET_AUTH_STATUS`,
   SET_AUTH_USER_DATA: `SET_AUTH_USER_DATA`,
   SET_USER_ERROR: `SET_USER_ERROR`,
-  RESET_USER_ERROR: `RESET_USER_ERROR`,
 };
 
 const ActionCreator = {
   setAuthStatus: (status) => ({type: ActionType.SET_AUTH_STATUS, payload: status}),
   setAuthUserData: (authUserData) => ({type: ActionType.SET_AUTH_USER_DATA, payload: authUserData}),
   setUserError: (userError) => ({type: ActionType.SET_USER_ERROR, payload: userError}),
-  resetUserError: () => ({type: ActionType.RESET_USER_ERROR, payload: null}),
 };
 
 const reducer = (state = initialState, action) => {
@@ -32,9 +30,6 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {authUserData: action.payload});
 
     case ActionType.SET_USER_ERROR:
-      return Object.assign({}, state, {userError: action.payload});
-
-    case ActionType.RESET_USER_ERROR:
       return Object.assign({}, state, {userError: action.payload});
   }
 
@@ -49,7 +44,7 @@ const Operation = {
     })
       .then(({data}) => {
         if (getUserError(getState())) {
-          dispatch(ActionCreator.resetUserError());
+          dispatch(ActionCreator.setUserError(null));
         }
 
         if (!data) {
@@ -68,6 +63,11 @@ const Operation = {
         }));
         throw err;
       });
+  },
+  logout: () => (dispatch, getState, api) => {
+    dispatch(ActionCreator.setAuthUserData(null));
+    dispatch(ActionCreator.setAuthStatus(false));
+    history.push(AppRoute.LOGIN);
   },
 };
 
